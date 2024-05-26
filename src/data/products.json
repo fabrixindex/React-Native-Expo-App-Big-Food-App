@@ -1,0 +1,233 @@
+[
+    {
+        "id": 134,
+        "title": "Burguer Extreme",
+        "description": "A delicious extreme burger with double beef patties, cheese, lettuce, and special sauce.",
+        "price": 10,
+        "rating": 4.90,
+        "stock": 100,
+        "category": "Burgers",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 241,
+        "title": "Pizza Napolitana",
+        "description": "Traditional Neapolitan pizza with fresh tomatoes, mozzarella, and basil.",
+        "price": 20,
+        "rating": 4.90,
+        "stock": 100,
+        "category": "Pizzas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 352,
+        "title": "Milanesa Napolitana",
+        "description": "Breaded beef fillet topped with tomato sauce, ham, and melted cheese.",
+        "price": 15,
+        "rating": 4.90,
+        "stock": 100,
+        "category": "Milanesas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 478,
+        "title": "Coca Cola",
+        "description": "Refreshing Coca Cola beverage.",
+        "price": 2,
+        "rating": 5.0,
+        "stock": 100,
+        "category": "Beverages",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 512,
+        "title": "Chicken Burger",
+        "description": "Juicy chicken burger with lettuce, tomato, and mayo.",
+        "price": 9,
+        "rating": 4.85,
+        "stock": 50,
+        "category": "Burgers",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 623,
+        "title": "Veggie Burger",
+        "description": "Healthy veggie burger with a patty made from mixed vegetables.",
+        "price": 8,
+        "rating": 4.70,
+        "stock": 60,
+        "category": "Burgers",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 737,
+        "title": "Bacon Cheeseburger",
+        "description": "Burger topped with crispy bacon and melted cheese.",
+        "price": 11,
+        "rating": 4.95,
+        "stock": 30,
+        "category": "Burgers",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 854,
+        "title": "Classic Cheeseburger",
+        "description": "Classic burger with cheese, lettuce, tomato, and onions.",
+        "price": 10,
+        "rating": 4.80,
+        "stock": 70,
+        "category": "Burgers",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 901,
+        "title": "Margherita Pizza",
+        "description": "Simple yet delicious Margherita pizza with tomatoes, mozzarella, and basil.",
+        "price": 18,
+        "rating": 4.85,
+        "stock": 80,
+        "category": "Pizzas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1035,
+        "title": "Pepperoni Pizza",
+        "description": "Classic pepperoni pizza with a generous amount of pepperoni slices.",
+        "price": 22,
+        "rating": 4.90,
+        "stock": 90,
+        "category": "Pizzas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1123,
+        "title": "Four Cheese Pizza",
+        "description": "Pizza with a blend of four delicious cheeses.",
+        "price": 25,
+        "rating": 4.95,
+        "stock": 60,
+        "category": "Pizzas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1298,
+        "title": "Hawaiian Pizza",
+        "description": "Pizza with ham, pineapple, and cheese.",
+        "price": 20,
+        "rating": 4.75,
+        "stock": 70,
+        "category": "Pizzas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1459,
+        "title": "Chicken Milanesa",
+        "description": "Breaded chicken fillet with lemon and herbs.",
+        "price": 13,
+        "rating": 4.80,
+        "stock": 50,
+        "category": "Milanesas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1583,
+        "title": "Beef Milanesa",
+        "description": "Crispy beef milanesa served with fresh salad.",
+        "price": 15,
+        "rating": 4.85,
+        "stock": 70,
+        "category": "Milanesas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1697,
+        "title": "Pork Milanesa",
+        "description": "Tender pork milanesa with a golden crust.",
+        "price": 14,
+        "rating": 4.75,
+        "stock": 60,
+        "category": "Milanesas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1720,
+        "title": "Vegetarian Milanesa",
+        "description": "Milanesa made from mixed vegetables and cheese.",
+        "price": 12,
+        "rating": 4.70,
+        "stock": 40,
+        "category": "Milanesas",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1843,
+        "title": "Sprite",
+        "description": "Refreshing lemon-lime Sprite beverage.",
+        "price": 2,
+        "rating": 4.90,
+        "stock": 100,
+        "category": "Beverages",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 1954,
+        "title": "Fanta",
+        "description": "Orange-flavored Fanta beverage.",
+        "price": 2,
+        "rating": 4.85,
+        "stock": 100,
+        "category": "Beverages",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 2065,
+        "title": "Pepsi",
+        "description": "Refreshing Pepsi beverage.",
+        "price": 2,
+        "rating": 4.75,
+        "stock": 100,
+        "category": "Beverages",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 2176,
+        "title": "Orange Juice",
+        "description": "Freshly squeezed orange juice.",
+        "price": 3,
+        "rating": 4.80,
+        "stock": 50,
+        "category": "Beverages",
+        "thumbnail": "",
+        "images": [""]
+    },
+    {
+        "id": 2287,
+        "title": "Iced Tea",
+        "description": "Refreshing iced tea with a hint of lemon.",
+        "price": 2.5,
+        "rating": 4.75,
+        "stock": 60,
+        "category": "Beverages",
+        "thumbnail": "",
+        "images": [""]
+    }
+]

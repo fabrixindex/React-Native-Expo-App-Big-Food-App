@@ -1,0 +1,1 @@
+export const baseUrl = "https://big-food-app-default-rtdb.firebaseio.com/"
