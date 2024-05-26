@@ -12,8 +12,6 @@ const Cart = () => {
         triggerPostOrder({items: CartData, user: "Juan", total})
     }
 
-    console.log("RESULTADOOO:", result)
-
     return (
         <View style={styles.container}>
             {CartData.length === 0 ? (

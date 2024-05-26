@@ -9,6 +9,7 @@ import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
 import CartTemp from "../screens/CartTemp"
 //import OrdersTemp from "../screens/OrdersTemp"
+import MyProfileStackNavigator from "./MyProfileStackNavigator"
 
 const Tab = createBottomTabNavigator()
 
@@ -52,6 +53,19 @@ const BottomTabNavigator = () => {
                                     size={24}
                                     color={focused ? "white" : "black"}
                                 />
+                            </View>
+                        )
+                    },
+                }}
+            />
+            <Tab.Screen 
+                name="My profile"
+                component={MyProfileStackNavigator}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View>
+                                <Ionicons name="person-circle" size={24} color={focused ? "white" : "black"}  />
                             </View>
                         )
                     },
