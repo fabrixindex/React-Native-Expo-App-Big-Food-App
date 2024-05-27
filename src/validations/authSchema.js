@@ -13,4 +13,4 @@ export const signupSchema = object().shape({
 export const loginSchema = object().shape({
     email: string().required("Email is required").email("Not a valid email"),
     password: string().required("Password is required")
-});
+})

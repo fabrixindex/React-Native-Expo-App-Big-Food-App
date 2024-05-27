@@ -9,7 +9,7 @@ import { dropSessionsTable, initSQLiteDB } from "./src/persistence/index.js"
   try {
       const response = await initSQLiteDB()
   } catch (error) {
-      console.log({errorCreatingDB: error});
+      console.log({errorCreatingDB: error})
   }
 })()
 

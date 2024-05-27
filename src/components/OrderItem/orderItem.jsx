@@ -1,32 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import React from "react";
+import { StyleSheet, Text, View } from "react-native"
+import { Feather } from "@expo/vector-icons"
+import React from "react"
 
 const OrderItem = ({ order }) => {
     const total = order.items.reduce(
         (acc, currentItem) => (acc += currentItem.price * currentItem.quantity),
         0
-    );
+    )
 
     return (
         <View style={styles.card} onPress={() => {}}>
             <View style={styles.textContainer}>
                 <Text style={styles.text}>
-                    {new Date(order.createdAt).toLocaleString()}
+                    {new Date(order?.createdAt || null).toLocaleString()}
                 </Text>
                 <Text style={styles.text2}>${total}</Text>
             </View>
             <Feather name="search" size={30} color="black" />
         </View>
-    );
-};
+    )
+}
 
-export default OrderItem;
+export default OrderItem
 
 const styles = StyleSheet.create({
     card: {
         height: 100,
-        backgroundColor: "grey",
+        backgroundColor: "green",
         padding: 10,
         margin: 10,
         borderWidth: 2,
@@ -47,6 +47,6 @@ const styles = StyleSheet.create({
     },
     text2: {
         fontSize: 19,
-        color: "gray",
+        color: "grey",
     },
-});
+}) 

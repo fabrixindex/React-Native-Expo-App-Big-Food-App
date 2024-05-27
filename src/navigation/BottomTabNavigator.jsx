@@ -3,12 +3,12 @@ import { StyleSheet, View } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import HomeStackNavigator from "./HomeStackNavigator"
 import CartStack from "./CartStackNavigator"
-//import OrderStack from "./OrderStackNavigator"
+import OrderStack from "./OrderStackNavigator"
 import Header from "../components/Header/Header"
 import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
 import CartTemp from "../screens/CartTemp"
-//import OrdersTemp from "../screens/OrdersTemp"
+import OrdersTemp from "../screens/OrdersTemp"
 import MyProfileStackNavigator from "./MyProfileStackNavigator"
 
 const Tab = createBottomTabNavigator()
@@ -58,6 +58,19 @@ const BottomTabNavigator = () => {
                     },
                 }}
             />
+             <Tab.Screen 
+                name="Orders"
+                component={OrderStack}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View>
+                                <Ionicons name="receipt-outline" size={24} color={ focused ? "white" : "black"} />
+                            </View>
+                        )
+                    },
+                }}
+            />
             <Tab.Screen 
                 name="My profile"
                 component={MyProfileStackNavigator}
@@ -71,36 +84,6 @@ const BottomTabNavigator = () => {
                     },
                 }}
             />
-            {/*<Tab.Screen 
-                name="Orders"
-                component={OrderStack}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <Ionicons name="receipt-outline" size={24} color={ focused ? 'black' : 'red'} />
-                            </View>
-                        )
-                    },
-                }}
-            /> */}
-            {/* <Tab.Screen
-                name="Orders"
-                component={OrdersTemp}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <Ionicons
-                                    name="receipt"
-                                    size={24}
-                                    color={focused ? "white" : "black"}
-                                />
-                            </View>
-                        )
-                    },
-                }}
-            /> */}
         </Tab.Navigator>
     )
 }

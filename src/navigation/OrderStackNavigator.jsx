@@ -1,4 +1,3 @@
-{/*
 import React from "react"
 import OrderScreen from "../screens/Orders"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -18,4 +17,4 @@ const OrderStack = () => {
     )
 }
 
-export default OrderStack */}
+export default OrderStack
