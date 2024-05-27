@@ -6,6 +6,7 @@ import { useSignInMutation } from "../services/authServices.js";
 import { setUser } from "../features/User/userSlice.js";
 import { useDispatch } from "react-redux";
 import { loginSchema } from "../validations/authSchema.js";
+import { insertSession } from "../persistence/index.js";
 
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -16,16 +17,26 @@ const LoginScreen = ({ navigation }) => {
   const [triggerSignIn, result] = useSignInMutation();
 
   useEffect(() => {
-    if (result.isSuccess) {
-      dispatch(
-        setUser({
-          email: result.data.email,
-          idToken: result.data.idToken,
-          localId: result.data.localId
+    if (result?.data && result.isSuccess) {
+        insertSession({
+            email: result.data.email,
+            localId: result.data.localId,
+            token: result.data.idToken,
         })
-      );
+            .then((response) => {
+                dispatch(
+                    setUser({
+                        email: result.data.email,
+                        idToken: result.data.idToken,
+                        localId: result.data.localId,
+                    })
+                )
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
-  }, [result, dispatch]);
+}, [result])
 
   const onSubmit = () => {
     setErrorMail("");

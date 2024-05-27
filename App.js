@@ -3,6 +3,15 @@ import React from "react"
 import Navigator from "./src/navigation/Navigator.jsx"
 import { Provider } from "react-redux"
 import store from "./src/store"
+import { dropSessionsTable, initSQLiteDB } from "./src/persistence/index.js"
+
+(async ()=> {
+  try {
+      const response = await initSQLiteDB()
+  } catch (error) {
+      console.log({errorCreatingDB: error});
+  }
+})()
 
 export default function App() {
   return (
