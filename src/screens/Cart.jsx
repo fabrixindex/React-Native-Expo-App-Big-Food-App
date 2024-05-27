@@ -1,34 +1,45 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native"
-import React from "react"
-import CartItem from "../components/CartItem/cartItem"
-import { useSelector } from "react-redux"
-import { usePostOrderMutation } from "../services/shopServices"
+import { FlatList, Pressable, StyleSheet, Text, View, Alert } from "react-native";
+import React from "react";
+import CartItem from "../components/CartItem/cartItem";
+import { useSelector, useDispatch } from "react-redux";
+import { usePostOrderMutation } from "../services/shopServices";
+import { clearCart, confirmOrder } from "../features/Cart/cartSlice";
 
 const Cart = () => {
-    const {localId} = useSelector(state => state.auth.value)
-    const { items: CartData, total } = useSelector((state) => state.cart.value);
-    const [triggerPostOrder, result] = usePostOrderMutation()
+    const dispatch = useDispatch();
+    const { localId } = useSelector(state => state.auth.value);
+    const { items: CartData, total, createdAt } = useSelector((state) => state.cart.value);
+    const [triggerPostOrder] = usePostOrderMutation();
     
-    const onConfirmOrder = () => {
-        triggerPostOrder({items: CartData, user: localId, total})
-    }
+    const onConfirmOrder = async () => {
+        dispatch(confirmOrder());
+        
+        const order = {
+            items: CartData,
+            user: localId,
+            total,
+            createdAt: new Date().toISOString(), 
+        };
+        
+        await triggerPostOrder(order);
+        dispatch(clearCart());
+        Alert.alert("Order Confirmed", "Your purchase has been completed successfully.");
+    };
 
     return (
         <View style={styles.container}>
             {CartData.length === 0 ? (
-                <Text style={styles.emptyCartText}>Tu carrito está vacío</Text>
+                <Text style={styles.emptyCartText}>Your cart is empty</Text>
             ) : (
                 <>
                     <FlatList
                         data={CartData}
                         keyExtractor={(x) => x.id}
-                        renderItem={({ item }) => {
-                            return <CartItem cartItem={item} />;
-                        }}
+                        renderItem={({ item }) => <CartItem cartItem={item} />}
                     />
 
                     <View style={styles.totalContainer}>
-                        <Text style={styles.totalText}>Total de su Compra: ${total}</Text>
+                        <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
                         <Pressable onPress={onConfirmOrder} style={styles.confirmButton}>
                             <Text style={styles.confirmText}>Confirm</Text>
                         </Pressable>
