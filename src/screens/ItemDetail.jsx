@@ -51,7 +51,11 @@ const ItemDetail = ({ route, navigation }) => {
                 : styles.textContainerLandscape
             }
           >
-            <Image source={product.images && product.images.length > 0 ? { uri: product.images[0] } : require("../../assets/images/Product_sin_imagen_disponible.jpg")} style={styles.image} />
+            <Image 
+              source={product.images && product.images.length > 0 ? { uri: product.images[0] } : require("../../assets/images/Product_sin_imagen_disponible.jpg")} 
+              style={styles.image} 
+              resizeMode="cover"
+            />
             <Text style={styles.title}>{product.title}</Text>
             <Text style={styles.description}>{product.description}</Text>
             <Text style={styles.price}>${product.price}</Text>
@@ -83,13 +87,13 @@ const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
     padding: 10,
   },
   mainContainerLandscape: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
     padding: 10,
     gap: 10,
   },
@@ -101,22 +105,25 @@ const styles = StyleSheet.create({
     width: '50%',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'start',
+    alignItems: 'center',
     gap: 10,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign: 'center', 
   },
   description: {
     fontSize: 16,
     marginBottom: 10,
+    textAlign: 'center', 
   },
   price: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: 'center', 
   },
   addToCartButton: {
     width: '100%',
@@ -135,9 +142,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   image: {
-    width: "100%",
+    width: 300, 
     height: 200,
     borderRadius: 10,
     marginBottom: 10,
+    backgroundColor: '#f0f0f0', 
   },
 });

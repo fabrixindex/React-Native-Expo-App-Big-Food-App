@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import InputForm from "../components/InputForm/inputForm";
 import SubmitButton from "../components/SubmitButtom/submitButtom";
 import { useSignInMutation } from "../services/authServices.js";
@@ -20,25 +20,25 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (result?.data && result.isSuccess) {
-        insertSession({
-            email: result.data.email,
-            localId: result.data.localId,
-            token: result.data.idToken,
+      insertSession({
+        email: result.data.email,
+        localId: result.data.localId,
+        token: result.data.idToken,
+      })
+        .then((response) => {
+          dispatch(
+            setUser({
+              email: result.data.email,
+              idToken: result.data.idToken,
+              localId: result.data.localId,
+            })
+          );
         })
-            .then((response) => {
-                dispatch(
-                    setUser({
-                        email: result.data.email,
-                        idToken: result.data.idToken,
-                        localId: result.data.localId,
-                    })
-                )
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        .catch((err) => {
+          Alert.alert("Error", "An unexpected error occurred while saving session data.");
+        });
     }
-}, [result])
+  }, [result]);
 
   const onSubmit = async () => {
     setErrorMail("");
@@ -49,19 +49,20 @@ const LoginScreen = ({ navigation }) => {
       const validation = loginSchema.validateSync({ email, password });
       await triggerSignIn({ email, password });
     } catch (err) {
-      console.log("Login error caught:");
-      console.log(err.path);
-      console.log(err.message);
+      let errorMessage = "An unexpected error occurred";
       switch (err.path) {
         case "email":
           setErrorMail(err.message);
+          errorMessage = err.message;
           break;
         case "password":
           setErrorPassword(err.message);
+          errorMessage = err.message;
           break;
         default:
           break;
       }
+      Alert.alert("Error", errorMessage);
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,5 @@
-import { Image, StyleSheet, View, Text } from "react-native";
 import React, { useEffect } from "react";
+import { Image, StyleSheet, View, Text } from "react-native";
 import AddButton from "../components/AddButtom/addButtom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetProfileImageQuery } from "../services/shopServices.js";
@@ -23,7 +23,7 @@ const MyProfile = ({ navigation }) => {
             const response = await truncateSessionsTable()
             dispatch(clearUser())
         } catch (error) {
-            console.log({errorSignOutDB: error});
+            Alert.alert("Error", "An error occurred while signing out.");
         }
     }
 

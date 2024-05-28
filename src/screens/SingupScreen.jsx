@@ -47,22 +47,24 @@ const SignupScreen = ({ navigation }) => {
             setLoading(true);
             await triggerSignUp({email, password, returnSecureToken: true})
         } catch (err) {
-            console.log("Entro al signup del error");
-            console.log(err.path);
-            console.log(err.message);
+            let errorMessage = "An unexpected error occurred";
             switch (err.path) {
                 case "email":
                     setErrorMail(err.message)
+                    errorMessage = err.message;
                     break;
                 case "password":
                     setErrorPassword(err.message)
+                    errorMessage = err.message;
                     break;
                 case "confirmPassword":
                     setErrorConfirmPassword(err.message)
+                    errorMessage = err.message;
                     break;
                 default:
                     break;
             }
+            Alert.alert("Error", errorMessage);
         } finally {
             setLoading(false);
         }

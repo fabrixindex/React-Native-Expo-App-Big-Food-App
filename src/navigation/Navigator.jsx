@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import BottomTabNavigator from './BottomTabNavigator'
@@ -27,7 +26,7 @@ const Navigator = () => {
           }))
         }
       } catch (error) {
-        console.log(error);
+        Alert.alert("Error", "An error occurred while loading session.");
       }
     })()
   }, [])
@@ -40,5 +39,3 @@ const Navigator = () => {
 }
 
 export default Navigator
-
-const styles = StyleSheet.create({})
