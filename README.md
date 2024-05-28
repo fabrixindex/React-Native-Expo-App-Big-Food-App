@@ -4,7 +4,11 @@ Big Food es una aplicación móvil de e-commerce que te permite comprar una ampl
 
 ## Repositorio de la App
 
-Mira el repositorio del backend de su e-commerce en [este enlace](https://github.com/fabrixindex/React-Native-Expo-App-Big-Food-App.git).
+Mira el repositorio de la App en [este enlace](https://github.com/fabrixindex/React-Native-Expo-App-Big-Food-App.git).
+
+## App en produccion
+
+Puedes probar como funciona la App en [este enlace](https://big-food-app.netlify.app).
 
 ## Características Principales
 
