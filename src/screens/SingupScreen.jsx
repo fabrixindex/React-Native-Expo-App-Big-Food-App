@@ -1,11 +1,12 @@
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import SubmitButton from "../components/SubmitButtom/submitButtom";
 import InputForm from "../components/InputForm/inputForm";
 import { useSignUpMutation } from "../services/authServices.js"; 
 import { setUser } from "../features/User/userSlice.js";
 import { signupSchema } from "../validations/authSchema.js";
+import Loader from "../components/Loader/loader.jsx";
 
 const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ const SignupScreen = ({ navigation }) => {
     const [errorPassword, setErrorPassword] = useState("")
     const [confirmPassword, setconfirmPassword] = useState("");
     const [errorConfirmPassword, setErrorConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch()
 
@@ -32,16 +34,18 @@ const SignupScreen = ({ navigation }) => {
                 "Success",
                 "Registration successful"
             );
+            setLoading(false);
         }
     }, [result]);    
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         try {
             setErrorMail("")
             setErrorPassword("")
             setErrorConfirmPassword("")
             const validation = signupSchema.validateSync({email, password, confirmPassword})
-            triggerSignUp({email, password, returnSecureToken: true})
+            setLoading(true);
+            await triggerSignUp({email, password, returnSecureToken: true})
         } catch (err) {
             console.log("Entro al signup del error");
             console.log(err.path);
@@ -59,6 +63,8 @@ const SignupScreen = ({ navigation }) => {
                 default:
                     break;
             }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -82,7 +88,11 @@ const SignupScreen = ({ navigation }) => {
                         isSecure={true}
                     />
                 </View>
-                <SubmitButton onPress={onSubmit} title="Send" />
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <SubmitButton onPress={onSubmit} title="Send" />
+                )}
                 <Text style={styles.sub}>Already have an account?</Text>
                 <Pressable onPress={() => navigation.navigate("Login")}>
                     <Text style={styles.subLink}>Login</Text>

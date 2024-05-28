@@ -1,6 +1,7 @@
 import { FlatList, Pressable, StyleSheet, Text, View, Alert } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import CartItem from "../components/CartItem/cartItem";
+import Loader from "../components/Loader/loader"; 
 import { useSelector, useDispatch } from "react-redux";
 import { usePostOrderMutation } from "../services/shopServices";
 import { clearCart, confirmOrder } from "../features/Cart/cartSlice";
@@ -8,10 +9,12 @@ import { clearCart, confirmOrder } from "../features/Cart/cartSlice";
 const Cart = () => {
     const dispatch = useDispatch();
     const { localId } = useSelector(state => state.auth.value);
-    const { items: CartData, total, createdAt } = useSelector((state) => state.cart.value);
+    const { items: CartData, total } = useSelector((state) => state.cart.value);
     const [triggerPostOrder] = usePostOrderMutation();
+    const [isConfirming, setIsConfirming] = useState(false);
     
     const onConfirmOrder = async () => {
+        setIsConfirming(true);
         dispatch(confirmOrder());
         
         const order = {
@@ -23,12 +26,15 @@ const Cart = () => {
         
         await triggerPostOrder(order);
         dispatch(clearCart());
+        setIsConfirming(false);
         Alert.alert("Order Confirmed", "Your purchase has been completed successfully.");
     };
 
     return (
         <View style={styles.container}>
-            {CartData.length === 0 ? (
+            {isConfirming ? (
+                <Loader />
+            ) : CartData.length === 0 ? (
                 <Text style={styles.emptyCartText}>Your cart is empty</Text>
             ) : (
                 <>

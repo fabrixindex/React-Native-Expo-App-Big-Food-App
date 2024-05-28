@@ -4,11 +4,12 @@ import * as ImagePicker from "expo-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { setCameraImage } from "../features/User/userSlice";
 import AddButton from "../components/AddButtom/addButtom";
-import { usePostProfileImageMutation } from "../services/shopServices"; 
+import { usePostProfileImageMutation } from "../services/shopServices";
+import Loader from "../components/Loader/loader"; 
 
 const ImageSelector = ({ navigation }) => {
     const [image, setImage] = useState(null);
-    const [triggerPostImage, result] = usePostProfileImageMutation();
+    const [triggerPostImage, { isLoading }] = usePostProfileImageMutation();
     const { localId } = useSelector(state => state.auth.value);
     const dispatch = useDispatch();
 
@@ -41,7 +42,7 @@ const ImageSelector = ({ navigation }) => {
     const confirmImage = async () => {
         try {
             dispatch(setCameraImage(image));
-            triggerPostImage({ image, localId });
+            await triggerPostImage({ image, localId });
             navigation.goBack();
         } catch (error) {
             console.log(error);
@@ -51,21 +52,27 @@ const ImageSelector = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Select Profile Image</Text>
-            {image ? (
-                <>
-                    <Image source={{ uri: image }} style={styles.image} />
-                    <AddButton title="Take another photo" onPress={pickImage} />
-                    <AddButton title="Confirm photo" onPress={confirmImage} />
-                </>
+            {isLoading ? (
+                <Loader />
             ) : (
                 <>
-                    <View style={styles.noPhotoContainer}>
-                        <Text style={styles.noPhotoText}>No photo to show...</Text>
-                    </View>
-                    <AddButton title="Take a photo" onPress={pickImage} />
+                    {image ? (
+                        <>
+                            <Image source={{ uri: image }} style={styles.image} />
+                            <AddButton title="Take another photo" onPress={pickImage} />
+                            <AddButton title="Confirm photo" onPress={confirmImage} />
+                        </>
+                    ) : (
+                        <>
+                            <View style={styles.noPhotoContainer}>
+                                <Text style={styles.noPhotoText}>No photo to show...</Text>
+                            </View>
+                            <AddButton title="Take a photo" onPress={pickImage} />
+                        </>
+                    )}
+                    <AddButton title="Cancel" onPress={() => navigation.goBack()} />
                 </>
             )}
-             <AddButton title="Cancel" onPress={() => navigation.goBack()} />
         </View>
     );
 };

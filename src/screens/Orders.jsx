@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 import OrderItem from '../components/OrderItem/orderItem';
 import { useGetOrdersQuery } from '../services/shopServices';
 import { useSelector } from 'react-redux';
+import Loader from '../components/Loader/loader'; 
 
 const OrderScreen = () => {
   const { localId } = useSelector(state => state.auth.value);
-  const { data: orders, isSuccess } = useGetOrdersQuery(localId);
+  const { data: orders, isSuccess, isLoading } = useGetOrdersQuery(localId);
   const [ordersFiltered, setOrdersFiltered] = useState([]);
 
   useEffect(() => {
@@ -21,8 +22,11 @@ const OrderScreen = () => {
 
   return (
     <View style={styles.container}>
-      {ordersFiltered.length > 0 ? (
+      {isLoading ? (
+        <Loader />
+      ) : ordersFiltered.length > 0 ? (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={ordersFiltered}
           keyExtractor={(item, index) => item.id || index.toString()}
           renderItem={({ item }) => <OrderItem order={item} />}

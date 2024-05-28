@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import InputForm from "../components/InputForm/inputForm";
 import SubmitButton from "../components/SubmitButtom/submitButtom";
 import { useSignInMutation } from "../services/authServices.js";
@@ -7,6 +7,7 @@ import { setUser } from "../features/User/userSlice.js";
 import { useDispatch } from "react-redux";
 import { loginSchema } from "../validations/authSchema.js";
 import { insertSession } from "../persistence/index.js";
+import Loader from "../components/Loader/loader.jsx";
 
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const LoginScreen = ({ navigation }) => {
   const [errorMail, setErrorMail] = useState("");
   const [password, setPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [triggerSignIn, result] = useSignInMutation();
 
   useEffect(() => {
@@ -38,13 +40,14 @@ const LoginScreen = ({ navigation }) => {
     }
 }, [result])
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setErrorMail("");
     setErrorPassword("");
+    setLoading(true);
 
     try {
       const validation = loginSchema.validateSync({ email, password });
-      triggerSignIn({ email, password });
+      await triggerSignIn({ email, password });
     } catch (err) {
       console.log("Login error caught:");
       console.log(err.path);
@@ -59,6 +62,8 @@ const LoginScreen = ({ navigation }) => {
         default:
           break;
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,7 +82,11 @@ const LoginScreen = ({ navigation }) => {
             isSecure={true}
           />
         </View>
-        <SubmitButton onPress={onSubmit} title="Login" />
+        {loading ? (
+          <Loader />
+        ) : (
+          <SubmitButton onPress={onSubmit} title="Login" />
+        )}
         <Text style={styles.sub}>Don't have an account?</Text>
         <Pressable onPress={() => navigation.navigate("Signup")}>
           <Text style={styles.subLink}>Sign up</Text>

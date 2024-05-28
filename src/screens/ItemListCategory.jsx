@@ -3,6 +3,7 @@ import ProductItem from "../components/ProductItem/productItem";
 import { useState, useEffect } from "react";
 import { useGetProductsByCategoryQuery } from "../services/shopServices";
 import GoBackButton from "../components/GoBackNavigation/goBackNavigation";
+import Loader from "../components/Loader/loader"; 
 
 const ItemListCategory = ({
   setCategorySelected = () => {},
@@ -18,21 +19,6 @@ const ItemListCategory = ({
 
   useEffect(() => {
 
-    const regexDigits = /\d/
-    const hasDigits = regexDigits.test(keyWord)
-    if (hasDigits) {
-      setError("Don't use digits")
-      return
-    }
-   
-    const regexThreeOrMore = /[a-zA-Z]{3,}/
-    const hasThreeOrMoreChars = regexThreeOrMore.test(keyWord)
-
-    if (!hasThreeOrMoreChars && keyWord.length) {
-      setError("Type 3 or more characters")
-      return
-    }
-
     if (!isLoading) {
       const productsFilter = productsFetched.filter((product) =>
         product.title.toLocaleLowerCase().includes(keyWord.toLocaleLowerCase())
@@ -45,11 +31,10 @@ const ItemListCategory = ({
   return (
     <>
       <View style={styles.flatListContainer}>
-        <GoBackButton navigation={navigation} />
         {error ? (
           <Text>{error}</Text>
         ) : isLoading ? (
-          <Text>Loading...</Text>
+          <Loader />
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -58,8 +43,10 @@ const ItemListCategory = ({
               <ProductItem product={item} navigation={navigation} />
             )}
             keyExtractor={(producto) => producto.id}
+            style={styles.flatList}
           />
         )}
+        <GoBackButton navigation={navigation} />
       </View>
     </>
   );

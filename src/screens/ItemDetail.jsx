@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Pressable, StyleSheet, Text, View, useWindowDimensions, Image } from "react-native";
 import { useGetProductByIdQuery } from "../services/shopServices";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../features/Cart/cartSlice";
 import GoBackButton from "../components/GoBackNavigation/goBackNavigation";
+import Loader from "../components/Loader/loader";
 
 const ItemDetail = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -33,8 +34,9 @@ const ItemDetail = ({ route, navigation }) => {
 
   return (
     <View style={styles.containerItemDetail}>
-      <GoBackButton navigation={navigation} />
-      {product ? (
+      {isLoading ? (
+        <Loader />
+      ) : product ? (
         <View
           style={
             orientation === "portrait"
@@ -49,6 +51,7 @@ const ItemDetail = ({ route, navigation }) => {
                 : styles.textContainerLandscape
             }
           >
+            <Image source={product.images && product.images.length > 0 ? { uri: product.images[0] } : require("../../assets/images/Product_sin_imagen_disponible.jpg")} style={styles.image} />
             <Text style={styles.title}>{product.title}</Text>
             <Text style={styles.description}>{product.description}</Text>
             <Text style={styles.price}>${product.price}</Text>
@@ -61,6 +64,7 @@ const ItemDetail = ({ route, navigation }) => {
                 {showAddedToCart ? "Product Added To Cart" : "Add to Cart"}
               </Text>
             </Pressable>
+            <GoBackButton navigation={navigation} />
           </View>
         </View>
       ) : null}
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
   containerItemDetail: {
     backgroundColor: "white",
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   mainContainer: {
     flexDirection: "column",
@@ -129,5 +133,11 @@ const styles = StyleSheet.create({
   },
   disabledButton: {
     backgroundColor: "#ccc",
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 10,
+    marginBottom: 10,
   },
 });

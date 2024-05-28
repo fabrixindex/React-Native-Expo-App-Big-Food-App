@@ -15,8 +15,6 @@ const styles = StyleSheet.create({
   cardCategory: {
     backgroundColor: "#ffcccb", 
     borderRadius: 20,
-    padding: 30,
-    paddingVertical: 35,
     marginVertical: 13,
     width: "100%",
     shadowColor: "#000",
