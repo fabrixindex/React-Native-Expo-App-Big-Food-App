@@ -7,7 +7,9 @@ import { StyleSheet, Platform, SafeAreaView, StatusBar, Alert } from "react-nati
 
 (async ()=> {
   try {
-      const response = await initSQLiteDB()
+      if (Platform.OS !== 'web') {
+        const response = await initSQLiteDB()
+      }
   } catch (error) {
       Alert.alert("Error", "An error occurred while initializing the SQLite database.");
   }

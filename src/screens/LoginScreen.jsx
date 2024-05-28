@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { loginSchema } from "../validations/authSchema.js";
 import { insertSession } from "../persistence/index.js";
 import Loader from "../components/Loader/loader.jsx";
+import { Platform } from "react-native";
 
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -20,12 +21,16 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (result?.data && result.isSuccess) {
-      insertSession({
-        email: result.data.email,
-        localId: result.data.localId,
-        token: result.data.idToken,
-      })
-        .then((response) => {
+      (async () => {
+        try{
+          if (Platform.OS !== 'web'){
+            const response = await insertSession({
+              email: result.data.email,
+              localId: result.data.localId,
+              token: result.data.idToken,
+            })
+          }
+
           dispatch(
             setUser({
               email: result.data.email,
@@ -33,10 +38,11 @@ const LoginScreen = ({ navigation }) => {
               localId: result.data.localId,
             })
           );
-        })
-        .catch((err) => {
+
+        }catch (err){
           Alert.alert("Error", "An unexpected error occurred while saving session data.");
-        });
+        }
+      })()
     }
   }, [result]);
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, View, Text, Platform } from "react-native";
 import AddButton from "../components/AddButtom/addButtom";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetProfileImageQuery } from "../services/shopServices.js";
@@ -20,7 +20,7 @@ const MyProfile = ({ navigation }) => {
 
     const signOut = async () => {
         try {
-            const response = await truncateSessionsTable()
+            if (Platform.OS !== 'web') await truncateSessionsTable()
             dispatch(clearUser())
         } catch (error) {
             Alert.alert("Error", "An error occurred while signing out.");
